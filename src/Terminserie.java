@@ -28,6 +28,7 @@ public class Terminserie {
 
     @Override
     public String toString() {
+        if(termine==null){return "";}
         StringBuilder stringBuilder = new StringBuilder();
         for (Termin termin : termine){
             stringBuilder.append(termin.toString()).append("\n");
