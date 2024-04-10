@@ -2,10 +2,10 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class Termin {
-    private static DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+    private static final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
     private String name;
-    private LocalDateTime start;
-    private LocalDateTime end;
+    private final LocalDateTime start;
+    private final LocalDateTime end;
 
     public Termin(String name, LocalDateTime start, LocalDateTime end){
         if(name==null||start==null||end==null){
@@ -23,6 +23,6 @@ public class Termin {
     }
     @Override
     public String toString() {
-        return "\tName: " + name + "\n\t\t" + String.format("start date: %s\t\tend date: %s", start.format(dateTimeFormatter), end.format(dateTimeFormatter), dateTimeFormatter);
+        return "\tName: " + name + "\n\t\t" + String.format("start date: %s\t\tend date: %s", start.format(dateTimeFormatter), end.format(dateTimeFormatter));
     }
 }
