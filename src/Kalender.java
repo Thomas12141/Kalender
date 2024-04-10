@@ -1,5 +1,4 @@
 import java.lang.reflect.Array;
-import java.util.ArrayList;
 
 public class Kalender {
     private String name;
@@ -8,15 +7,28 @@ public class Kalender {
     private final int initialSize = 32;
     private int terminPosition = 0;
     private int serienPosition = 0;
-    public void init(){
-        name = "Kalender";
+
+    public Kalender(String name){
+        if (name==null||name.isEmpty()){
+            throw new IllegalArgumentException("Name cant be null or empty!");
+        }
+        this.name = name;
         termine = new Termin[initialSize];
         serien = new Terminserie[initialSize];
     }
-    public void setName(String name) {
+
+    void setName(String name) {
+        if (name==null||name.isEmpty()){
+            throw new IllegalArgumentException("Name cant be null or empty!");
+        }
         this.name = name;
     }
-    public void addTermin(Termin termin){
+
+    public String getName() {
+        return name;
+    }
+
+    void addTermin(Termin termin){
         if (termin == null) {throw new NullPointerException();}
         if (termine == null) {termine = new Termin[initialSize];}
         if(terminPosition == termine.length){
@@ -24,12 +36,14 @@ public class Kalender {
         }
         termine[terminPosition++] = termin;
     }
-    public void addSerie(Terminserie terminserie){
+
+    void addSerie(Terminserie terminserie){
         if (terminserie == null) {throw new NullPointerException();}
         if (serien == null) {serien = new Terminserie[initialSize];}
         if (serien.length==serienPosition) {serien = makeArrayBigger(serien, Terminserie.class);}
         serien[serienPosition++] = terminserie;
     }
+
     @Override
     public String toString(){
         if(termine==null){return "";}
@@ -41,15 +55,13 @@ public class Kalender {
             stringBuilder.append(termine[i]).append("\n");
         }
         for (int i = 0;i<serienPosition;i++){
-            for (int index = 0; index < serien[i].getAnzahl(); index++) {
+            for (int index = 0; index < serien[i].getNumber(); index++) {
                 stringBuilder.append(serien[i].getTermin(index)).append("\n");
             }
         }
         return stringBuilder.toString();
     }
-    public String ausgeben(){
-        return this.toString();
-    }
+
     private <T> T[] makeArrayBigger(T[] toIncrease, Class<T> elementType){
         T[] result = (T[]) Array.newInstance(elementType, toIncrease.length * 2);
         for (int i = 0; i < toIncrease.length; i++) {
