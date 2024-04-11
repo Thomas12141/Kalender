@@ -28,6 +28,10 @@ public class Terminserie {
         return termine.length;
     }
 
+    public Termin[] getTermine() {
+        return termine;
+    }
+
     @Override
     public String toString() {
         if(termine==null){return "";}
