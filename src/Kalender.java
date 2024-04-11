@@ -106,7 +106,7 @@ public class Kalender {
                     minute = 0;
                     localDateTime = localDateTime.withHour(localDateTime.getHour()+1);
                 }
-
+                localDateTime = localDateTime.withMinute(minute);
             }
             if(localDateTime.toLocalDate().isAfter(endDate)){
                 break;
