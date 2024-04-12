@@ -68,6 +68,7 @@ public class Kalender {
         return stringBuilder.toString();
     }
 
+    @SuppressWarnings("unchecked")
     private <T> T[] makeArrayBigger(T[] toIncrease, Class<T> elementType){
         T[] result = (T[]) Array.newInstance(elementType, toIncrease.length * 2);
         System.arraycopy(toIncrease, 0, result, 0, toIncrease.length);

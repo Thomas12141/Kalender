@@ -95,7 +95,7 @@ public class Main {
                         System.out.println("This name is already taken.");
                     }
                 }
-                else if(choice == 4){
+                else if(choice == 4||choice == 5){
                     choice = chooseKalender();
                     System.out.println("Give the name of the meeting:");
                     String name = scanner.next();
@@ -110,30 +110,17 @@ public class Main {
                     String endTime = scanner.next();
                     LocalTime localEndTime = LocalTime.parse(endTime, hourTimeFormatter);
                     LocalDateTime end = LocalDateTime.of(localDate, localEndTime);
-                    Termin termin = new Termin(name, start, end);
-                    kalenders.getKalenders()[choice-1].addTermin(termin);
-                }
-                else if(choice == 5){
-                    choice = chooseKalender();
-                    System.out.println("Give the name of the meeting series:");
-                    String name = scanner.next();
-                    System.out.println("Give the date of the meeting, in the next format dd.MM.Year:");
-                    String datum = scanner.next();
-                    LocalDate localDate = LocalDate.parse(datum, dateTimeFormatter);
-                    System.out.println("Give the start time of the meeting, in the next format HH:mm:");
-                    String startTime = scanner.next();
-                    LocalTime localStartTime = LocalTime.parse(startTime, hourTimeFormatter);
-                    LocalDateTime start = LocalDateTime.of(localDate, localStartTime);
-                    System.out.println("Give the end time of the meeting, in the next format HH:mm:");
-                    String endTime = scanner.next();
-                    LocalTime localEndTime = LocalTime.parse(endTime, hourTimeFormatter);
-                    LocalDateTime end = LocalDateTime.of(localDate, localEndTime);
-                    System.out.println("Give the number of the meetings:");
-                    int number = scanner.nextInt();
-                    System.out.println("Give the number of days between every meeting:");
-                    int interval = scanner.nextInt();
-                    Terminserie terminSerie = new Terminserie(name, number, start, end, interval);
-                    kalenders.getKalenders()[choice-1].addSerie(terminSerie);
+                    if(choice == 4){
+                        Termin termin = new Termin(name, start, end);
+                        kalenders.getKalenders()[choice-1].addTermin(termin);
+                    }else {
+                        System.out.println("Give the number of the meetings:");
+                        int number = scanner.nextInt();
+                        System.out.println("Give the number of days between every meeting:");
+                        int interval = scanner.nextInt();
+                        Terminserie terminSerie = new Terminserie(name, number, start, end, interval);
+                        kalenders.getKalenders()[choice-1].addSerie(terminSerie);
+                    }
                 }
                 else if(choice == 6){
                     int firstCalender = chooseKalender();

@@ -1,5 +1,5 @@
 public class Kalenders {
-    private Kalender [] kalenders;
+    private final Kalender [] kalenders;
     private int elementsNumber;
     public Kalenders(int size) {
         kalenders = new Kalender[size];

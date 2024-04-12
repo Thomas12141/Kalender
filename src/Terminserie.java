@@ -2,7 +2,7 @@ import java.time.LocalDateTime;
 
 public class Terminserie {
     private String name;
-    private Termin[] termine;
+    private final Termin[] termine;
 
     public Terminserie(String name, int number, LocalDateTime start, LocalDateTime end, int interval){
         if(number<1||interval<0||start==null||end==null){
@@ -10,7 +10,7 @@ public class Terminserie {
         }
         termine = new Termin[number];
         for (int index = 0; index < number; index++) {
-            termine[index] = new Termin(name, start.plusDays(interval*index), end.plusDays(interval*index));
+            termine[index] = new Termin(name, start.plusDays((long) interval *index), end.plusDays((long) interval *index));
         }
     }
 
