@@ -34,8 +34,12 @@ public class Kalender {
     }
 
     void addTermin(Termin termin){
-        if (termin == null) {throw new NullPointerException();}
-        if (termine == null) {termine = new Termin[initialSize];}
+        if (termin == null) {
+            throw new NullPointerException();
+        }
+        if (termine == null) {
+            termine = new Termin[initialSize];
+        }
         if(terminPosition == termine.length){
             termine = makeArrayBigger(termine, Termin.class);
         }
