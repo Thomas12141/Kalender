@@ -18,7 +18,13 @@ public class Terminserie {
         return name;
     }
     public void setName(String name) {
+        if(name==null||name.isEmpty()){
+            return;
+        }
         this.name = name;
+        for (int i = 0; i < termine.length; i++) {
+            termine[i].setName(name);
+        }
     }
     public Termin getTermin(int index){
         return termine[index];

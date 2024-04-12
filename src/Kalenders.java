@@ -78,7 +78,7 @@ public class Kalenders {
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();
         for (int i = 0; i < elementsNumber; i++) {
-            stringBuilder.append((i + 1)).append(". ").append(kalenders[i].toString()).append("\n\t");
+            stringBuilder.append("\t").append((i + 1)).append(".").append("\t").append(kalenders[i].toString()).append("\n");
         }
         return stringBuilder.toString();
     }

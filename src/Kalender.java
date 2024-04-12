@@ -54,7 +54,7 @@ public class Kalender {
         if(termine==null){return "";}
         StringBuilder stringBuilder = new StringBuilder();
         if(name!=null){
-            stringBuilder.append(name).append(":\n");
+            stringBuilder.append("\t").append(name).append(":\n");
         }
         for (int i = 0;i<terminPosition;i++){
             stringBuilder.append(termine[i]).append("\n");
@@ -76,9 +76,7 @@ public class Kalender {
     public Termin[] freieTermineFinden(Kalender kalender, LocalDate startDate, LocalDate endDate, LocalTime startTime, LocalTime endTime, int dauer, String name) {
         ArrayList<Termin> termins = new ArrayList<>();
         ArrayList<Termin> result = new ArrayList<>();
-        if(this.termine.length>0){
-            termins.addAll(List.of(this.termine));
-        }
+        addItems(termins, termine);
         ArrayList<Terminserie> series = new ArrayList<>(List.of(this.serien));
         for (Terminserie terminserie: series){
             termins.addAll(List.of(terminserie.getTermine()));
@@ -120,6 +118,17 @@ public class Kalender {
             result.removeIf(termin::inTheTimeFrame);
         }
         return result.toArray(new Termin[0]);
+    }
+
+    private static <T> void addItems(ArrayList<T> list, T[] arr){
+        if(arr.length>0){
+            T iterator = arr[0];
+            int index = 1;
+            while(iterator!=null&&index<arr.length){
+                list.add(iterator);
+                iterator = arr[index++];
+            }
+        }
     }
 
     private boolean isInTheTimeFrame(LocalDate startInterval, LocalDate endInterval, LocalTime startingHour, LocalTime endingHour,
