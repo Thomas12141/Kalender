@@ -21,6 +21,7 @@ public class Main {
         return name;
     }
     private static int createKalender(){
+        System.out.print("Enter the name of the new calender:");
         String name = getName();
         if(falseInput.equals(name)){
             return 3;
@@ -37,7 +38,6 @@ public class Main {
     }
 
     public static void main(String[] args) {
-
         int choice;
         boolean success;
         while(true){
@@ -48,7 +48,6 @@ public class Main {
                     System.out.println("\t2. Exit the program.");
                     choice = scanner.nextInt();
                     if(choice==1){
-                        System.out.print("Enter the name of the new calender:");
                         createKalender();
                     }else if(choice==2){
                         System.exit(0);
@@ -63,7 +62,8 @@ public class Main {
                 System.out.println("\t3. Rename a calender.");
                 System.out.println("\t4. Add a meeting to a calender.");
                 System.out.println("\t5. Add a series of meeting to a calender.");
-                System.out.println("\t6. Exit the program.");
+                System.out.println("\t6. Get free meetings.");
+                System.out.println("\t7. Exit the program.");
 
                 choice =  scanner.nextInt();
                 if(choice == 1){
@@ -137,6 +137,31 @@ public class Main {
                     kalenders.getKalenders()[choice-1].addSerie(terminSerie);
                 }
                 else if(choice == 6){
+                    int firstCalnder = chooseKalender();
+                    int secondCalender = chooseKalender();
+                    System.out.println("Give the start date of the optional meetings, in the next format dd.MM.Year:");
+                    String date = scanner.next();
+                    LocalDate startDate = LocalDate.parse(date, dateTimeFormatter);
+                    System.out.println("Give the end date of the optional meetings, in the next format dd.MM.Year:");
+                    date = scanner.next();
+                    LocalDate endDate = LocalDate.parse(date, dateTimeFormatter);
+                    System.out.println("Give the start time of the meeting, in the next format HH:mm:");
+                    String time = scanner.next();
+                    LocalTime startTime = LocalTime.parse(time, hourTimeFormatter);
+                    System.out.println("Give the end time of the meeting, in the next format HH:mm:");
+                    time = scanner.next();
+                    LocalTime endTime = LocalTime.parse(time, hourTimeFormatter);
+                    System.out.println("Give the length of the meeting in minutes:");
+                    int length = scanner.nextInt();
+                    System.out.println("Give the name of the meeting:");
+                    String name = scanner.next();
+                    Termin[] meetings = kalenders.getKalenders()[firstCalnder-1].freieTermineFinden(kalenders.getKalenders()[secondCalender], startDate, endDate,
+                            startTime, endTime, length, name);
+                    for (int i = 0; i < meetings.length; i++) {
+                        System.out.println(meetings[i]);
+                    }
+                }
+                else if(choice == 7){
                     scanner.close();
                     System.exit(0);
                 }
@@ -145,28 +170,6 @@ public class Main {
                 scanner = new Scanner(System.in);
             }
         }
-        /*Kalender kalender1 = new Kalender("Kalender1");
-        Kalender kalender2 = new Kalender("Kalender2");
-        Termin termin1 = new Termin();
-        termin1.init("OOS", LocalDateTime.of(2024, 3, 21, 16, 30), LocalDateTime.of(2024, 3,21, 18, 30));
-        Termin termin2 = new Termin();
-        termin2.init("BS", LocalDateTime.of(2024, 3, 18, 16, 30), LocalDateTime.of(2024, 3,18, 18, 30));
-        Termin termin3 = new Termin();
-        termin3.init("KI", LocalDateTime.of(2024, 3, 16, 16, 30), LocalDateTime.of(2024, 3,16, 18, 30));
-        Terminserie terminserie1 = new Terminserie();
-        terminserie1.init("GITS", 5, LocalDateTime.of(2024, 3, 16, 9, 30),
-                LocalDateTime.of(2024, 3,16, 11, 30), 7);
-        Terminserie terminserie2 = new Terminserie();
-        terminserie2.init("PSE-Praktikum", 5, LocalDateTime.of(2024, 3, 14, 9, 30),
-                LocalDateTime.of(2024, 3,16, 11, 30), 14);
-        kalender1.addSerie(terminserie1);
-        kalender2.addSerie(terminserie2);
-        kalender1.addTermin(termin1);
-        kalender1.addTermin(termin2);
-        kalender1.addTermin(termin3);
-        kalender2.addTermin(termin1);
-        System.out.println(kalender1.ausgeben());
-        System.out.println(kalender2.ausgeben());*/
     }
 
 }

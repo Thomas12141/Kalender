@@ -69,16 +69,16 @@ public class Kalender {
 
     private <T> T[] makeArrayBigger(T[] toIncrease, Class<T> elementType){
         T[] result = (T[]) Array.newInstance(elementType, toIncrease.length * 2);
-        for (int i = 0; i < toIncrease.length; i++) {
-            result[i] = toIncrease[i];
-        }
+        System.arraycopy(toIncrease, 0, result, 0, toIncrease.length);
         return result;
     }
 
     public Termin[] freieTermineFinden(Kalender kalender, LocalDate startDate, LocalDate endDate, LocalTime startTime, LocalTime endTime, int dauer, String name) {
         ArrayList<Termin> termins = new ArrayList<>();
         ArrayList<Termin> result = new ArrayList<>();
-        termins.addAll(List.of(this.termine));
+        if(this.termine.length>0){
+            termins.addAll(List.of(this.termine));
+        }
         ArrayList<Terminserie> series = new ArrayList<>(List.of(this.serien));
         for (Terminserie terminserie: series){
             termins.addAll(List.of(terminserie.getTermine()));
@@ -88,11 +88,7 @@ public class Kalender {
         for (Terminserie terminserie: series){
             termins.addAll(List.of(terminserie.getTermine()));
         }
-        for (Termin termin: termins){
-            if(isInTheTimeFrame(startDate, endDate, startTime, endTime, termin.getStart(), termin.getEnd())||termin.getLength()!=dauer){
-                termins.remove(termin);
-            }
-        }
+        termins.removeIf(termin -> isInTheTimeFrame(startDate, endDate, startTime, endTime, termin.getStart(), termin.getEnd()) || termin.getLength() != dauer);
         LocalDateTime localDateTime = LocalDateTime.of(startDate, startTime);
         while (localDateTime.toLocalDate().isBefore(endDate)){
             if(localDateTime.toLocalTime().isAfter(endTime)){
@@ -121,11 +117,7 @@ public class Kalender {
             localDateTime = localDateTime.plusMinutes(30);
         }
         for (Termin termin: termins){
-            for (Termin freeTermin: result){
-                if(termin.inTheTimeFrame(freeTermin)){
-                    result.remove(freeTermin);
-                }
-            }
+            result.removeIf(termin::inTheTimeFrame);
         }
         return result.toArray(new Termin[0]);
     }
