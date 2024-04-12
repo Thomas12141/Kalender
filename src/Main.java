@@ -6,11 +6,11 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Main {
-    private static DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
-    private static DateTimeFormatter hourTimeFormatter = DateTimeFormatter.ofPattern("HH:mm");
+    private static final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+    private static final DateTimeFormatter hourTimeFormatter = DateTimeFormatter.ofPattern("HH:mm");
     private static Scanner scanner = new Scanner(System.in);
-    private static String falseInput = "False input.";
-    private static Kalenders kalenders = new Kalenders(10);
+    private static final String falseInput = "False input.";
+    private static final Kalenders kalenders = new Kalenders(10);
 
     private static String getName(){
         String name = scanner.next();
@@ -33,8 +33,7 @@ public class Main {
     private static int chooseKalender(){
         System.out.println(kalenders);
         System.out.println("Choose a calender number:");
-        int choice = scanner.nextInt();
-        return choice;
+        return scanner.nextInt();
     }
 
     public static void main(String[] args) {
@@ -137,7 +136,7 @@ public class Main {
                     kalenders.getKalenders()[choice-1].addSerie(terminSerie);
                 }
                 else if(choice == 6){
-                    int firstCalnder = chooseKalender();
+                    int firstCalender = chooseKalender();
                     int secondCalender = chooseKalender();
                     System.out.println("Give the start date of the optional meetings, in the next format dd.MM.Year:");
                     String date = scanner.next();
@@ -155,10 +154,10 @@ public class Main {
                     int length = scanner.nextInt();
                     System.out.println("Give the name of the meeting:");
                     String name = scanner.next();
-                    Termin[] meetings = kalenders.getKalenders()[firstCalnder-1].freieTermineFinden(kalenders.getKalenders()[secondCalender], startDate, endDate,
+                    Termin[] meetings = kalenders.getKalenders()[firstCalender-1].freieTermineFinden(kalenders.getKalenders()[secondCalender], startDate, endDate,
                             startTime, endTime, length, name);
-                    for (int i = 0; i < meetings.length; i++) {
-                        System.out.println(meetings[i]);
+                    for (Termin meeting : meetings) {
+                        System.out.println(meeting);
                     }
                 }
                 else if(choice == 7){
