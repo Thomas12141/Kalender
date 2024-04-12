@@ -37,9 +37,6 @@ public class Kalender {
         if (termin == null) {
             throw new NullPointerException();
         }
-        if (termine == null) {
-            termine = new Termin[initialSize];
-        }
         if(terminCounter == termine.length){
             termine = makeArrayBigger(termine, Termin.class);
         }
