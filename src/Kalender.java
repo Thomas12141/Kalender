@@ -10,8 +10,8 @@ public class Kalender {
     private Termin[] termine;
     private Terminserie[] serien;
     private final int initialSize = 32;
-    private int terminPosition = 0;
-    private int serienPosition = 0;
+    private int terminCounter = 0;
+    private int serienCounter = 0;
 
     public Kalender(String name){
         if (name==null||name.isEmpty()){
@@ -40,17 +40,17 @@ public class Kalender {
         if (termine == null) {
             termine = new Termin[initialSize];
         }
-        if(terminPosition == termine.length){
+        if(terminCounter == termine.length){
             termine = makeArrayBigger(termine, Termin.class);
         }
-        termine[terminPosition++] = termin;
+        termine[terminCounter++] = termin;
     }
 
     void addSerie(Terminserie terminserie){
         if (terminserie == null) {throw new NullPointerException();}
         if (serien == null) {serien = new Terminserie[initialSize];}
-        if (serien.length==serienPosition) {serien = makeArrayBigger(serien, Terminserie.class);}
-        serien[serienPosition++] = terminserie;
+        if (serien.length== serienCounter) {serien = makeArrayBigger(serien, Terminserie.class);}
+        serien[serienCounter++] = terminserie;
     }
 
     @Override
@@ -60,10 +60,10 @@ public class Kalender {
         if(name!=null){
             stringBuilder.append("\t").append(name).append(":\n");
         }
-        for (int i = 0;i<terminPosition;i++){
+        for (int i = 0; i< terminCounter; i++){
             stringBuilder.append(termine[i]).append("\n");
         }
-        for (int i = 0;i<serienPosition;i++){
+        for (int i = 0; i< serienCounter; i++){
             for (int index = 0; index < serien[i].getNumber(); index++) {
                 stringBuilder.append(serien[i].getTermin(index)).append("\n");
             }
