@@ -52,6 +52,6 @@ public class Termin {
 
     @Override
     public String toString() {
-        return "\tName: " + name + "\n\t\t" + String.format("start date: %s\t\tend date: %s", start.format(dateTimeFormatter), end.format(dateTimeFormatter));
+        return    String.format("\tName: %s \n\t\t start date: %s\t\tend date: %s",name ,start.format(dateTimeFormatter), end.format(dateTimeFormatter));
     }
 }

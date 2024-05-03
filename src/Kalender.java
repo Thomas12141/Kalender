@@ -79,7 +79,7 @@ public class Kalender {
         ArrayList<Termin> termins = new ArrayList<>();
         ArrayList<Termin> result = new ArrayList<>();
         addItems(termins, termine);
-        ArrayList<Terminserie> series = new ArrayList<>(List.of(this.serien));
+        ArrayList<Terminserie> series = new ArrayList<>(List.of(serien));
         for (Terminserie terminserie: series){
             termins.addAll(List.of(terminserie.getTermine()));
         }
